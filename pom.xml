@@ -19,7 +19,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.sourcepond.testing</groupId>
 	<artifactId>bundle-test-support</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 	<name>Support project for OSGi integration tests</name>
 	<inceptionYear>2015</inceptionYear>
@@ -48,7 +48,7 @@
 		<url>${git.url}</url>
 		<connection>${git.protocol.url}</connection>
 		<developerConnection>${git.protocol.url}</developerConnection>
-		<tag>bundle-test-support-0.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 </project>
 
