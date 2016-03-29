@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<!-- Licensed to the Apache Software Foundation (ASF) under one or more 
 		contributor license agreements. See the NOTICE file distributed with this 
@@ -20,7 +19,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.sourcepond.testing</groupId>
 	<artifactId>bundle-test-support</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>bundle</packaging>
 	<name>Support project for OSGi integration tests</name>
 	<inceptionYear>2015</inceptionYear>
@@ -49,7 +48,7 @@
 		<url>${git.url}</url>
 		<connection>${git.protocol.url}</connection>
 		<developerConnection>${git.protocol.url}</developerConnection>
-		<tag>HEAD</tag>
+		<tag>bundle-test-support-0.0.1</tag>
 	</scm>
 </project>
 
