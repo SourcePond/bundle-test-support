@@ -37,8 +37,8 @@ import javassist.CtField;
  * <p>
  * The service stubber gives you the possibility to install a service stub into
  * your OSGi test-container. This is useful if your bundle has service
- * dependencies but you don't want to add dependencies to implementation-bundles
- * of those services.
+ * dependencies but you don't want to add extra dependencies to your test
+ * project.
  * </p>
  * 
  * <p>
