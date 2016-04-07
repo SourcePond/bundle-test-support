@@ -67,5 +67,15 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- Remove this when MNG-3244, MNG-5951 are resolved -->
+	<url>https://sourcepond.github.io/${repo.project}</url>
+
+	<!-- Remove this when MNG-3244, MNG-5951 are resolved -->
+	<scm>
+		<url>https://${repo.domain}/${repo.path}</url>
+		<connection>scm:git:${project.scm.url}.git</connection>
+		<developerConnection>scm:git:ssh://${repo.domain}/${repo.path}.git</developerConnection>
+	</scm>
 </project>
 
