@@ -62,12 +62,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<scm>
-		<url>${git.url}</url>
-		<connection>${git.protocol.url}</connection>
-		<developerConnection>${git.protocol.url}</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
 </project>
 
