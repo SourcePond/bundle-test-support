@@ -51,6 +51,9 @@ public class OptionsHelper {
 				mavenBundle("org.apache.commons", "commons-lang3").versionAsInProject(),
 				mavenBundle("org.objenesis", "objenesis").versionAsInProject(),
 				mavenBundle("org.mockito", "mockito-core").versionAsInProject(),
+				mavenBundle("net.bytebuddy", "byte-buddy").versionAsInProject(), // Necessary
+																					// for
+																					// Mockito
 				frameworkProperty("felix.bootdelegation.implicit").value("false"), junitBundles(),
 
 		// Override regression default; we use the logback.xml located
@@ -68,8 +71,7 @@ public class OptionsHelper {
 		return composite(mavenBundle("org.apache.aries", "org.apache.aries.util").versionAsInProject(),
 				mavenBundle("org.apache.aries.proxy", "org.apache.aries.proxy.api").versionAsInProject(),
 				mavenBundle("org.apache.aries.proxy", "org.apache.aries.proxy.impl").versionAsInProject(),
-				mavenBundle("org.apache.aries.blueprint", "org.apache.aries.blueprint.core").versionAsInProject(),
-				mavenBundle("net.bytebuddy", "byte-buddy").versionAsInProject());
+				mavenBundle("org.apache.aries.blueprint", "org.apache.aries.blueprint.core").versionAsInProject());
 	}
 
 	/**
