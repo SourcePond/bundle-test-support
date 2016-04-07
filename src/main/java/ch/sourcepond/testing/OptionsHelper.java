@@ -30,8 +30,8 @@ import org.ops4j.pax.exam.Option;
 public class OptionsHelper {
 
 	/**
-	 * Creates the default options necessary to test a SourcePond component in
-	 * an OSGi environment. All SourcePond components are split into an API
+	 * Creates the default options necessary to test a bundle component in an
+	 * OSGi environment. All SourcePond components are split into an API
 	 * (example artifactId ch.sourcepond.componentname.api) and implementations
 	 * (example artifactId ch.sourcepond.componentname.impl). The arguments
 	 * passed to this method are always component names without *.api or *.impl
@@ -59,6 +59,31 @@ public class OptionsHelper {
 	}
 
 	/**
+	 * Create a composite option which references all necessary bundles to run a
+	 * Blueprint extender.
+	 * 
+	 * @return Option, never {@code null}
+	 */
+	public static Option blueprintBundles() {
+		return composite(mavenBundle("org.apache.aries", "org.apache.aries.util").versionAsInProject(),
+				mavenBundle("org.apache.aries.proxy", "org.apache.aries.proxy.api").versionAsInProject(),
+				mavenBundle("org.apache.aries.proxy", "org.apache.aries.proxy.impl").versionAsInProject(),
+				mavenBundle("org.apache.aries.blueprint", "org.apache.aries.blueprint.core").versionAsInProject(),
+				mavenBundle("net.bytebuddy", "byte-buddy").versionAsInProject());
+	}
+
+	/**
+	 * Creates a service stubber.
+	 * 
+	 * @param pServiceInterface
+	 *            The service interface to be stubbed.
+	 * @return Service-Stubber, never {@code null}
+	 */
+	public static <T> ServiceStubber<T> stubService(final Class<T> pServiceInterface) {
+		return new ServiceStubber<>(pServiceInterface);
+	}
+
+	/**
 	 * @param pDependencyComponent
 	 * @return
 	 */
@@ -77,8 +102,7 @@ public class OptionsHelper {
 	private static Option examineeOption(final String pComponentName) {
 		final String[] coordinates = coordinates(pComponentName);
 		return composite(componentOption(pComponentName),
-				wrappedBundle(maven(coordinates[0], coordinates[1] + "-impl").classifier("tests"))
-						.imports("org.hamcrest.*;resolution:=optional,org.ops4j.pax.exam.*;resolution:=optional,*"));
+				wrappedBundle(maven(coordinates[0], coordinates[1] + "-impl").classifier("tests")));
 	}
 
 	/**

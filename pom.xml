@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<!-- Licensed to the Apache Software Foundation (ASF) under one or more 
 		contributor license agreements. See the NOTICE file distributed with this 
@@ -12,14 +13,14 @@
 		the specific language governing permissions and limitations under the License. -->
 	<parent>
 		<groupId>ch.sourcepond</groupId>
-		<artifactId>build</artifactId>
-		<version>0.3.1</version>
+		<artifactId>bundle</artifactId>
+		<version>0.4.10</version>
 		<relativePath />
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.sourcepond.testing</groupId>
 	<artifactId>bundle-test-support</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 	<name>Support project for OSGi integration tests</name>
 	<inceptionYear>2015</inceptionYear>
@@ -29,9 +30,27 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+		</dependency>
+		<dependency>
+			<scope>compile</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
 			<scope>compile</scope>
 			<groupId>org.ops4j.pax.exam</groupId>
 			<artifactId>pax-exam</artifactId>
+		</dependency>
+		<dependency>
+			<scope>compile</scope>
+			<groupId>org.ops4j.pax.exam</groupId>
+			<artifactId>pax-exam-spi</artifactId>
 		</dependency>
 	</dependencies>
 
