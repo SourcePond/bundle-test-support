@@ -28,6 +28,11 @@
 		This project contains all necessary dependencies and helpers to create OSGi integration-tests for bundles published by SourcePond.
 	</description>
 
+	<properties>
+		<!-- SCM configuration -->
+		<repo.project>${project.artifactId}</repo.project>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.osgi</groupId>
