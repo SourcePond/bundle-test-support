@@ -13,21 +13,46 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 package ch.sourcepond.testing;
 
-import static org.ops4j.pax.exam.CoreOptions.composite;
-import static org.ops4j.pax.exam.CoreOptions.frameworkProperty;
-import static org.ops4j.pax.exam.CoreOptions.junitBundles;
-import static org.ops4j.pax.exam.CoreOptions.maven;
-import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
-import static org.ops4j.pax.exam.CoreOptions.systemProperty;
-import static org.ops4j.pax.exam.CoreOptions.wrappedBundle;
-
+import org.ops4j.pax.exam.Configuration;
+import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.karaf.options.KarafDistributionOption;
+import org.ops4j.pax.exam.karaf.options.KarafFeaturesOption;
+import org.ops4j.pax.exam.karaf.options.LogLevelOption;
+import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
+import org.ops4j.pax.exam.options.MavenUrlReference;
+import org.ops4j.pax.exam.options.UrlReference;
+
+import java.io.File;
+
+import static org.ops4j.pax.exam.CoreOptions.*;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.*;
 
 /**
  * Small helper class for Pax-Exam test configuration.
  *
  */
 public class OptionsHelper {
+
+	@Configuration
+	public Option[] karafContainer(final KarafFeaturesOption... pFeaturesToBeInstalled) {
+		MavenArtifactUrlReference karafUrl = maven()
+				.groupId("org.apache.karaf")
+				.artifactId("apache-karaf").versionAsInProject()
+				.type("tar.gz");
+
+		return new Option[]{
+				// KarafDistributionOption.debugConfiguration("5005", true),
+				karafDistributionConfiguration()
+						.frameworkUrl(karafUrl)
+						.unpackDirectory(new File("target/exam"))
+						.useDeployFolder(false).runEmbedded(true),
+				logLevel(LogLevelOption.LogLevel.INFO),
+				composite(pFeaturesToBeInstalled),
+				keepRuntimeFolder()
+		};
+	}
+
 
 	/**
 	 * Creates the default options necessary to test a bundle component in an
