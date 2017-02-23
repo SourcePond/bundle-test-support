@@ -29,8 +29,7 @@ import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.*;
  */
 public class OptionsHelper {
 
-    @Configuration
-    public Option[] karafContainer(final KarafFeaturesOption... pFeaturesToBeInstalled) {
+    public static Option[] karafContainer(final KarafFeaturesOption... pFeaturesToBeInstalled) {
         MavenArtifactUrlReference karafUrl = maven()
                 .groupId("org.apache.karaf")
                 .artifactId("apache-karaf").versionAsInProject()
