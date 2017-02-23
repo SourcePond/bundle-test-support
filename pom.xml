@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>ch.sourcepond</groupId>
 		<artifactId>bundle</artifactId>
-		<version>0.7.1</version>
+		<version>0.7.4</version>
 		<relativePath />
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -39,13 +39,16 @@
 			<artifactId>org.osgi.core</artifactId>
 		</dependency>
 		<dependency>
+			<scope>provided</scope>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<scope>compile</scope>
 			<groupId>org.ops4j.pax.tinybundles</groupId>
 			<artifactId>tinybundles</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<scope>compile</scope>
@@ -61,6 +64,7 @@
 			<scope>compile</scope>
 			<groupId>org.ops4j.pax.exam</groupId>
 			<artifactId>pax-exam-container-karaf</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 

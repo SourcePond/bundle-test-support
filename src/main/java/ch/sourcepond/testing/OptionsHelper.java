@@ -13,8 +13,6 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 package ch.sourcepond.testing;
 
-import org.ops4j.pax.exam.Configuration;
-import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.karaf.options.KarafFeaturesOption;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption;
@@ -76,6 +74,19 @@ public class OptionsHelper {
                 // Override regression default; we use the logback.xml located
                 // in this jar
                 systemProperty("logback.configurationFile").value(""));
+    }
+
+    public static Option mockitoBundles() {
+        return composite(mavenBundle().groupId("org.mockito").artifactId("mockito-core").versionAsInProject(),
+                mavenBundle().groupId("net.bytebuddy").artifactId("byte-buddy").versionAsInProject(),
+                mavenBundle().groupId("net.bytebuddy").artifactId("byte-buddy-agent").versionAsInProject(),
+                mavenBundle().groupId("org.objenesis").artifactId("objenesis").versionAsInProject());
+    }
+
+    public static Option tinyBundles() {
+        return composite(mavenBundle().groupId("org.ops4j.pax.tinybundles").
+                        artifactId("tinybundles").versionAsInProject(),
+                mavenBundle().groupId("biz.aQute.bnd").artifactId("biz.aQute.bndlib").versionAsInProject());
     }
 
     /**
