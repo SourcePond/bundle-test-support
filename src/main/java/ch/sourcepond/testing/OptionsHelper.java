@@ -14,6 +14,7 @@ limitations under the License.*/
 package ch.sourcepond.testing;
 
 import org.ops4j.pax.exam.Configuration;
+import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.karaf.options.KarafFeaturesOption;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption;
@@ -29,13 +30,13 @@ import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.*;
  */
 public class OptionsHelper {
 
-    public static Option[] karafContainer(final KarafFeaturesOption... pFeaturesToBeInstalled) {
+    public static Option karafContainer(final KarafFeaturesOption... pFeaturesToBeInstalled) {
         MavenArtifactUrlReference karafUrl = maven()
                 .groupId("org.apache.karaf")
                 .artifactId("apache-karaf").versionAsInProject()
                 .type("tar.gz");
 
-        return new Option[]{
+        return composite(
                 // KarafDistributionOption.debugConfiguration("5005", true),
                 karafDistributionConfiguration()
                         .frameworkUrl(karafUrl)
@@ -44,7 +45,7 @@ public class OptionsHelper {
                 logLevel(LogLevelOption.LogLevel.INFO),
                 composite(pFeaturesToBeInstalled),
                 keepRuntimeFolder()
-        };
+        );
     }
 
     /**
