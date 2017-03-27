@@ -41,6 +41,12 @@ public class OptionsHelper {
                         .unpackDirectory(new File("target/exam"))
                         .useDeployFolder(false).runEmbedded(true),
                 logLevel(LogLevelOption.LogLevel.INFO),
+                features(maven()
+                        .groupId("org.apache.karaf.features")
+                        .artifactId("standard")
+                        .classifier("features")
+                        .type("xml")
+                        .versionAsInProject(), "scr"),
                 composite(pFeaturesToBeInstalled),
                 keepRuntimeFolder()
         );
