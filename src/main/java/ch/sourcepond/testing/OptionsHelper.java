@@ -19,7 +19,14 @@ import org.ops4j.pax.exam.karaf.options.LogLevelOption;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 
 import java.io.File;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 
+import static java.lang.System.getProperty;
+import static java.nio.file.FileSystems.getDefault;
+import static java.nio.file.Files.newDirectoryStream;
 import static org.ops4j.pax.exam.CoreOptions.*;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.*;
 
@@ -50,6 +57,22 @@ public class OptionsHelper {
                 composite(pFeaturesToBeInstalled),
                 keepRuntimeFolder()
         );
+    }
+
+    public static Option provisionBundlesFromUserDir(final String... pPath) throws Exception {
+        final List<String> urls = new LinkedList<>();
+        Path dir = getDefault().getPath(getProperty("user.dir"));
+
+        for (final String pathElement : pPath) {
+            dir = dir.resolve(pathElement);
+        }
+
+        try (final DirectoryStream<Path> stream = newDirectoryStream(dir, entry -> entry.getFileName().toString().endsWith(".jar"))) {
+            for (final Path jar : stream) {
+                urls.add(jar.toUri().toURL().toString());
+            }
+        }
+        return provision(urls.toArray(new String[0]));
     }
 
     /**
