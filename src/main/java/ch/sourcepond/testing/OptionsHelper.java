@@ -19,6 +19,8 @@ import org.ops4j.pax.exam.karaf.options.LogLevelOption;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Path;
 import java.util.LinkedList;
@@ -59,7 +61,7 @@ public class OptionsHelper {
         );
     }
 
-    public static Option provisionBundlesFromUserDir(final String... pPath) throws Exception {
+    public static Option provisionBundlesFromUserDir(final String... pPath) {
         final List<String> urls = new LinkedList<>();
         Path dir = getDefault().getPath(getProperty("user.dir"));
 
@@ -71,6 +73,8 @@ public class OptionsHelper {
             for (final Path jar : stream) {
                 urls.add(jar.toUri().toURL().toString());
             }
+        } catch (final IOException e) {
+            throw new UncheckedIOException(e);
         }
         return provision(urls.toArray(new String[0]));
     }
