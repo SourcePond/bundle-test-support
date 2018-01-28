@@ -18,7 +18,6 @@ import org.ops4j.pax.exam.karaf.options.KarafFeaturesOption;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.DirectoryStream;
@@ -29,8 +28,18 @@ import java.util.List;
 import static java.lang.System.getProperty;
 import static java.nio.file.FileSystems.getDefault;
 import static java.nio.file.Files.newDirectoryStream;
-import static org.ops4j.pax.exam.CoreOptions.*;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.*;
+import static org.ops4j.pax.exam.CoreOptions.composite;
+import static org.ops4j.pax.exam.CoreOptions.frameworkProperty;
+import static org.ops4j.pax.exam.CoreOptions.junitBundles;
+import static org.ops4j.pax.exam.CoreOptions.maven;
+import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
+import static org.ops4j.pax.exam.CoreOptions.provision;
+import static org.ops4j.pax.exam.CoreOptions.systemProperty;
+import static org.ops4j.pax.exam.CoreOptions.wrappedBundle;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.features;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.karafDistributionConfiguration;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.keepRuntimeFolder;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.logLevel;
 
 /**
  * Small helper class for Pax-Exam test configuration.
@@ -38,6 +47,10 @@ import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.*;
 public class OptionsHelper {
 
     public static Option karafContainer(final KarafFeaturesOption... pFeaturesToBeInstalled) {
+        return karafContainer(getDefault().getPath(getProperty("user.dir"), "target", "exam"), pFeaturesToBeInstalled);
+    }
+
+    public static Option karafContainer(final Path pUnpackDir, final KarafFeaturesOption... pFeaturesToBeInstalled) {
         MavenArtifactUrlReference karafUrl = maven()
                 .groupId("org.apache.karaf")
                 .artifactId("apache-karaf").versionAsInProject()
@@ -47,7 +60,7 @@ public class OptionsHelper {
                 // KarafDistributionOption.debugConfiguration("5005", true),
                 karafDistributionConfiguration()
                         .frameworkUrl(karafUrl)
-                        .unpackDirectory(new File("target/exam"))
+                        .unpackDirectory(pUnpackDir.toFile())
                         .useDeployFolder(false).runEmbedded(true),
                 logLevel(LogLevelOption.LogLevel.INFO),
                 features(maven()
@@ -55,7 +68,7 @@ public class OptionsHelper {
                         .artifactId("standard")
                         .classifier("features")
                         .type("xml")
-                        .versionAsInProject(), "scr"),
+                        .versionAsInProject(), "scr", "config"),
                 composite(pFeaturesToBeInstalled),
                 keepRuntimeFolder()
         );
